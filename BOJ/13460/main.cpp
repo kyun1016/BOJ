@@ -80,6 +80,8 @@ namespace ans {
 	int Board::CalcBestWay()
 	{
 		Move();
+		if (mBestCnt > 10)
+			return -1;
 		return mBestCnt;
 	}
 	void Board::Move()
