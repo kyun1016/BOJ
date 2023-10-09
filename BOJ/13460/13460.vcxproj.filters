@@ -14,4 +14,25 @@
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
   </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="main.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="input1.txt" />
+    <Text Include="input2.txt" />
+    <Text Include="input3.txt" />
+    <Text Include="input4.txt" />
+    <Text Include="input5.txt" />
+    <Text Include="input6.txt" />
+    <Text Include="input7.txt" />
+    <Text Include="output1.txt" />
+    <Text Include="output2.txt" />
+    <Text Include="output3.txt" />
+    <Text Include="output4.txt" />
+    <Text Include="output5.txt" />
+    <Text Include="output6.txt" />
+    <Text Include="output7.txt" />
+  </ItemGroup>
 </Project>
