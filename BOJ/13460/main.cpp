@@ -5,7 +5,7 @@
 #include<cassert>
 #include<queue>
 
-namespace ans {
+namespace cls_13460 {
 	class Board
 	{
 	public:
@@ -341,7 +341,7 @@ void test(const std::string& fileName)
 	answer = std::stoi(temp);
 	filePtr.close();
 
-	ans::Board* board = new ans::Board(height, width, array);
+	cls_13460::Board* board = new cls_13460::Board(height, width, array);
 	std::cout << board->CalcBestWay() << std::endl;
 	//assert(answer == board->CalcBestWay());
 	delete board;
@@ -363,7 +363,7 @@ void answer()
 		}
 	}
 
-	ans::Board* board = new ans::Board(height, width, array);
+	cls_13460::Board* board = new cls_13460::Board(height, width, array);
 	std::cout << board->CalcBestWay() << std::endl;
 	delete board;
 }
