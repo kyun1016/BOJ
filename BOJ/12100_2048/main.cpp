@@ -22,6 +22,7 @@ namespace cls_12100 {
 	private:
 		int mSize;
 		std::vector<std::vector<int>> mArray;
+		bool mVisit[5][4];
 		int mMaxValue;
 	};
 
@@ -30,59 +31,31 @@ namespace cls_12100 {
 		, mArray(array)
 		, mMaxValue(0)
 	{
+		for (int i = 0; i < 5; ++i)
+		{
+			for (int j = 0; j < 4; ++j)
+			{
+				mVisit[i][j] = false;
+			}
+		}
 	}
 
 	void Board::MoveAll(const int& depth)
 	{
-		if (depth <= 5)
+		if (depth < 5)
 		{
 			std::vector<std::vector<int>> beforeArray(mArray);
 			MoveR();
 			MoveAll(depth + 1);
-			for (int y = 0; y < mSize; ++y)
-			{
-				for (int x = mSize - 1; x >= 0; --x)
-				{
-					std::cout << mArray[y][x] << " ";
-				}
-				std::cout << std::endl;
-			}
 			mArray = beforeArray;
-			
 			MoveL();
 			MoveAll(depth + 1);
-			for (int y = 0; y < mSize; ++y)
-			{
-				for (int x = mSize - 1; x >= 0; --x)
-				{
-					std::cout << mArray[y][x] << " ";
-				}
-				std::cout << std::endl;
-			}
 			mArray = beforeArray;
-			
 			MoveU();
 			MoveAll(depth + 1);
-			for (int y = 0; y < mSize; ++y)
-			{
-				for (int x = mSize - 1; x >= 0; --x)
-				{
-					std::cout << mArray[y][x] << " ";
-				}
-				std::cout << std::endl;
-			}
 			mArray = beforeArray;
-			
 			MoveD();
 			MoveAll(depth + 1);
-			for (int y = 0; y < mSize; ++y)
-			{
-				for (int x = mSize - 1; x >= 0; --x)
-				{
-					std::cout << mArray[y][x] << " ";
-				}
-				std::cout << std::endl;
-			}
 			mArray = beforeArray;
 		}
 	}
@@ -90,20 +63,24 @@ namespace cls_12100 {
 	void Board::MoveR()
 	{
 		std::queue<int> queue;
+		bool mergeFlag = false;
 		for (int y = 0; y < mSize; ++y)
 		{
 			for (int x = mSize - 1; x >= 0; --x)
 			{
-				if (mArray[y][x] != 0){
+				if (mArray[y][x] != 0) {
 					if (queue.size() == 0) {
+						mergeFlag = false;
 						queue.push(mArray[y][x]);
 					}
-					else if (queue.back() == mArray[y][x])
+					else if (queue.back() == mArray[y][x] && !mergeFlag)
 					{
+						mergeFlag = true;
 						queue.back() += mArray[y][x];
 					}
 					else
 					{
+						mergeFlag = false;
 						queue.push(mArray[y][x]);
 					}
 				}
@@ -126,20 +103,24 @@ namespace cls_12100 {
 	void Board::MoveL()
 	{
 		std::queue<int> queue;
+		bool mergeFlag = false;
 		for (int y = 0; y < mSize; ++y)
 		{
 			for (int x = 0; x < mSize; ++x)
 			{
 				if (mArray[y][x] != 0) {
 					if (queue.size() == 0) {
+						mergeFlag = false;
 						queue.push(mArray[y][x]);
 					}
-					else if (queue.back() == mArray[y][x])
+					else if (queue.back() == mArray[y][x] && !mergeFlag)
 					{
+						mergeFlag = true;
 						queue.back() += mArray[y][x];
 					}
 					else
 					{
+						mergeFlag = false;
 						queue.push(mArray[y][x]);
 					}
 				}
@@ -162,20 +143,24 @@ namespace cls_12100 {
 	void Board::MoveU()
 	{
 		std::queue<int> queue;
+		bool mergeFlag = false;
 		for (int x = 0; x < mSize; ++x)
 		{
 			for (int y = mSize - 1; y >= 0; --y)
 			{
 				if (mArray[y][x] != 0) {
 					if (queue.size() == 0) {
+						mergeFlag = false;
 						queue.push(mArray[y][x]);
 					}
-					else if (queue.back() == mArray[y][x])
+					else if (queue.back() == mArray[y][x] && !mergeFlag)
 					{
+						mergeFlag = true;
 						queue.back() += mArray[y][x];
 					}
 					else
 					{
+						mergeFlag = false;
 						queue.push(mArray[y][x]);
 					}
 				}
@@ -198,20 +183,24 @@ namespace cls_12100 {
 	void Board::MoveD()
 	{
 		std::queue<int> queue;
+		bool mergeFlag = false;
 		for (int x = 0; x < mSize; ++x)
 		{
 			for (int y = 0; y < mSize; ++y)
 			{
 				if (mArray[y][x] != 0) {
 					if (queue.size() == 0) {
+						mergeFlag = false;
 						queue.push(mArray[y][x]);
 					}
-					else if (queue.back() == mArray[y][x])
+					else if (queue.back() == mArray[y][x] && !mergeFlag)
 					{
+						mergeFlag = true;
 						queue.back() += mArray[y][x];
 					}
 					else
 					{
+						mergeFlag = false;
 						queue.push(mArray[y][x]);
 					}
 				}
@@ -271,8 +260,8 @@ void test(const std::string& fileName)
 	filePtr.close();
 
 	cls_12100::Board* board = new cls_12100::Board(size, array);
-	board->MoveAll(1);
-	std::cout << board->GetMaxValue() << "(calc) / " << answer << "(expect)" << std::endl;
+	board->MoveAll(0);
+	std::cout << board->GetMaxValue() << std::endl;
 	delete board;
 }
 
@@ -284,10 +273,10 @@ void answer()
 
 	std::vector<std::vector<int>> array;
 	array.resize(size, std::vector<int>(size));
-	
+
 	std::string temp;
 	for (int y = 0; y < size; ++y)
-	{	
+	{
 		getline(std::cin, temp);
 		int beforeIndex = 0;
 		int curIndex = temp.find(' ');
@@ -300,20 +289,16 @@ void answer()
 	}
 
 	cls_12100::Board* board = new cls_12100::Board(size, array);
-	board->MoveAll(1);
+	board->MoveAll(0);
 	std::cout << board->GetMaxValue() << std::endl;
 	delete board;
 }
 
 int main()
 {
-	test("1");
-	//test("2");
-	//test("3");
-	//test("4");
+	//test("1");
 
-	//answer();
+	answer();
 
 	return 0;
 }
-
